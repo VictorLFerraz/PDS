@@ -1,0 +1,15 @@
+function [X, frequency ] = my_fft2(x, fs)
+   % normalizar o eixo das abscissas
+   normalizar = length(x);
+   v_aux = 0:normalizar-1;
+   T = normalizar/fs;
+   frequency = v_aux/T; % redimensiona o eixo das abscissas 
+   X = fft(x)/normalizar; % normalizar
+   fc = ceil(normalizar/2); % Corte para ajustar os dados do vetor
+   X = X(1:fc);
+   figure;
+   plot(frequency(1:fc), abs(X)); % abs retorna o sinal no dominino da frequência
+   title('Super Mario Bros. em Domínio da frequência');
+   xlabel('Frequência (Hz)');
+   ylabel('Amplitude');
+end
