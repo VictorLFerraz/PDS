@@ -22,7 +22,10 @@ void setup() {
   textSize(14);
   text("Desenvolvido por Victor Lacerda Ferraz", 450  , 50, 550, 300);
   text("0.0 V", 160, 440 , 900,  446);
-  text("2.5 V", 160, 315 , 900,  315);
+  text("1.0 V", 160, 380 , 900,  300);
+  text("2.0 V", 160, 330 , 900,  315);
+  text("3.0 V", 160, 280 , 900,  287);
+  text("4.0 V", 160, 230 , 900,  287);
   text("5.0 V", 160, 185 , 900,  185);
   fill(0, 102, 153);
   noLoop();
@@ -55,9 +58,12 @@ void draw() {
   telaMultimetro();
   //delay(100);
   stroke(0,0,0);
-  strokeWeight(1.5);
+  strokeWeight(1.5); //Aqui
   line(204, 446 , 900,  446);
-  line(204, 315 , 900,  315);
+  line(204, 391, 900, 391);
+  line(204, 340 , 900,  340);
+  line(204, 285, 900, 285);
+  line(204, 240, 900, 240);
   line(204, 185 , 900,  185);
 }
 
@@ -86,7 +92,7 @@ void telaMultimetro() {
   } catch (Exception e) {
     //nao faça nada
   }
-  
+    
   fill(145, 145, 145);
   rect(420, 470, 290, 110);
   stroke(50);
