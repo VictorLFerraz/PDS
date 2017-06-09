@@ -1,0 +1,110 @@
+import processing.serial.*;
+String word = "";
+String fromSerial = "";
+String inString = "";
+Serial myPort; 
+boolean pause = false;
+int valorPorta = 0, Px = 204;
+float tensao = 0.0, Py;
+float pxPassado = 0, pyPassado = 0;
+PImage img;
+
+void setup() {
+  size(1088, 680);  // tamanho da tela
+  myPort = new Serial(this, "COM5", 9600);
+  myPort.bufferUntil(10); // tamanho do buffer de entrada da serial
+  img = loadImage("board.jpg");
+  telaScope();  
+  textSize(22);
+  image(img, 0, 0);
+  telaScope();
+  
+  textSize(14);
+  text("Desenvolvido por Victor Lacerda Ferraz", 450  , 50, 550, 300);
+  text("0.0 V", 160, 440 , 900,  446);
+  text("2.5 V", 160, 315 , 900,  315);
+  text("5.0 V", 160, 185 , 900,  185);
+  fill(0, 102, 153);
+  noLoop();
+}
+
+void draw() { 
+  try {
+    tensao = Float.parseFloat(fromSerial);
+    if(tensao <= 0.08)
+      tensao = 0.00;
+  } catch (Exception e) {
+    //nao faça nada
+  }
+    
+  Py = 446 - (tensao/0.01953);
+  stroke(255,0,0);
+  strokeWeight(5);
+
+  point(Px, Py);
+  
+  strokeWeight(5);
+  line(Px, Py , Px,  446);
+  
+  Px++;
+  
+  if (Px > 900) {
+    Px = 204;
+    telaScope();
+  }
+  telaMultimetro();
+  //delay(100);
+  stroke(0,0,0);
+  strokeWeight(1.5);
+  line(204, 446 , 900,  446);
+  line(204, 315 , 900,  315);
+  line(204, 185 , 900,  185);
+}
+
+void telaScope() {
+  textSize(14);
+  text("Desenvolvido por Victor Lacerda Ferraz", 450  , 50, 550, 300);
+  fill(255);
+  strokeWeight(2);
+  rect(200, 50, 700, 400); //quadrado grande
+  //int i;
+  strokeWeight(0.5);
+  //for (i = 200; i < 840; i+=70)  //traça vertical
+  //  line(i, 50, i, 450);
+  //for (i = 200; i < 400; i+=70)  //traça horizontal
+  //  line(125, i, 840, i);
+  strokeWeight(1);
+  textSize(12);
+  fill(0);
+}
+
+void telaMultimetro() {
+  try {
+    tensao = Float.parseFloat(fromSerial);
+    if(tensao <= 0.08)
+      tensao = 0.00;
+  } catch (Exception e) {
+    //nao faça nada
+  }
+  
+  fill(145, 145, 145);
+  rect(420, 470, 290, 110);
+  stroke(50);
+  textSize(26);
+  fill(0);
+  text("Tensão", 520, 500, 300, 200);
+  
+  text("Volts", 600, 540, 250, 200);
+  
+  textSize(36);
+  fill(0);
+  word = str(tensao);
+  text(word, 520, 530, 300, 200);
+  fill(0, 102, 153);
+  word = "";
+}
+
+void serialEvent(Serial p) {
+  fromSerial = p.readString();
+  redraw();
+}    
