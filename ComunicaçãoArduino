@@ -1,0 +1,100 @@
+int a, b, c, d, e, f, g, h, ledUm, ledDois, ledTres, ledQuatro, ledCinco, ledSeis, ledSete, ledOito;
+
+void setup() {
+
+  Serial.begin(9600);
+
+  // DEFININDO OS PINOS COMO ENTRADAS
+  
+  pinMode (2, INPUT);
+  pinMode (3, INPUT);
+  pinMode (4, INPUT);
+  pinMode (5, INPUT);
+  pinMode (6, INPUT);
+  pinMode (7, INPUT);
+  pinMode (8, INPUT);
+  pinMode (9, INPUT);
+
+  // DEFININDO COMO SAIDAS
+
+ digitalWrite (2,LOW);
+  digitalWrite (3,LOW);
+  digitalWrite (4,LOW);
+  digitalWrite (5,LOW);
+  digitalWrite (6,LOW);
+  digitalWrite (7,LOW);
+  digitalWrite (8,LOW);
+  digitalWrite (9,LOW);
+}
+void loop() {
+  
+  float out, a, b, c, d, e, f, g, h;
+
+  a = digitalRead (2);
+  b = digitalRead (3);
+  c = digitalRead (4);
+  d = digitalRead (5);
+  e = digitalRead (6);
+  f = digitalRead (7);
+  g = digitalRead (8);
+  h = digitalRead (9);
+
+float saida;
+
+if (a == HIGH){
+      ledUm = 1;
+   } else {
+      ledUm = 0 ;
+   }
+
+ if (b == HIGH){
+      ledDois = 2;
+   } else {
+      ledDois = 0 ;
+   }
+ if (c == HIGH){
+      ledTres = 4;
+   } else {
+      ledQuatro = 0 ;
+   }
+
+ if (d == HIGH){
+      ledQuatro = 8;
+   } else {
+      ledQuatro = 0 ;
+   }
+
+ if (e == HIGH){
+      ledCinco = 16;
+   } else {
+      ledCinco = 0 ;
+   }
+
+ if (f == HIGH){
+      ledSeis = 32;
+   } else {
+      ledSeis = 0 ;
+   }
+
+ if (g == HIGH){
+      ledSete = 64;
+   } else {
+      ledSete = 0 ;
+   }
+
+if (h == HIGH){
+      ledOito = 128;
+   } else {
+      ledOito = 0 ;
+   }
+   
+saida = (ledUm + ledDois + ledTres + ledQuatro + ledCinco + ledSeis + ledSete  + ledOito) * 0.019607843;
+//O valosr 0.19607843 é 5 da tensão dividido por 255
+Serial.println(saida);
+
+//motor = (ledUm + ledDois + ledTres + ledQuatro + ledCinco + ledSeis + ledSete  + ledOito) * 11.09803922;
+//Serial.println(motor);
+
+
+  
+}
